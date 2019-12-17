@@ -83,9 +83,16 @@ while get_p
 
   case player_n
   when '2'
+    cl_screen
+    puts "Type the player's ONE nickname:"
+    player1 = gets.chomp.to_s
+    puts "Type the player's TWO nickname:"
+    player2 = gets.chomp.to_s
     flash("\n\n\n\n\t\t\tLet's play,", 2)
     get_p = false
-  when '1'
+	when '1'
+		puts "Type the player's nickname:"
+    player1 = gets.chomp.to_s
     flash("\n\n\n\n\t\t\tDefeat the machine!, GET READY!", 2)
     get_p = false
   else
@@ -112,8 +119,9 @@ while gaming
   puts '|-------------------------------------|'
   puts '|-------------------------------------|'
   puts ''
-  puts "| It's Your turn PLAYER, show your move |" if turn.even?
-  puts "| Or type 'end' for leaving |" if turn.even?
+  puts "| It's Your turn #{player1}, show your move |" if turn.even?
+  puts "| It's Your turn #{player2}, show your move |" if turn.odd?
+  puts "| Or type 'end' for leaving |"
 
   input_trigger = true
   while input_trigger
@@ -123,8 +131,8 @@ while gaming
       break
     elsif move.match('[a-cA-C][1-3]')
       puts "| You played #{move}"
-      puts "It's the machine's turn now"
       input_trigger = false
+      turn += 1
     else
       hold('Your input is invalid, press ENTER and try again')
       cl_screen
