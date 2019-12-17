@@ -17,16 +17,29 @@ def hold(prompt = nil)
   print "            \r"
 end
 
-def flash(*promt)
-  0.upto(20) do
-    STDOUT.puts promt[0].to_s if promt[0].respond_to?(:to_s)
-    sleep 0.25
+def flash(*prompt)
+  0.upto(prompt[-1]) do
     cl_screen
-    STDOUT.puts promt[1].to_s if promt[1].respond_to?(:to_s)
-    sleep 0.25
+    STDOUT.puts prompt[0].to_s if prompt[0].respond_to?(:to_s)
+    sleep 0.35
+    cl_screen
+    STDOUT.puts prompt[1].to_s if prompt[1].is_a?(String)
+    sleep 0.35
     print "            \r"
-    cl_screen
   end
+end
+
+def mode_selector
+  cl_screen
+  puts '| ------------------------------------- |'
+  puts '|          SELECT YOUR GAME MODE!       |'
+  puts '| ------------------------------------- |'
+  puts '|                                       |'
+  puts '|           1: SINGLE PLAYER            |'
+  puts '|          2: MULTIPLAYER PLAYER        |'
+  puts '|                                       |'
+  puts '| ------------------------------------- |'
+  puts ''
 end
 
 main_prompt = true
@@ -54,8 +67,27 @@ while main_prompt
     cl_screen
   when 'X', 'x'
     cl_screen
-    flash("Let's play", 'Tic Tac Toe')
+    flash("\n\n\n\n\t\t\tLet's play", "\n\n\n\n\t\t\tTic Tac Toe", 3)
     main_prompt = false
+  else
+    hold('Your input is invalid, press ENTER and try again')
+    cl_screen
+  end
+end
+
+get_p = true
+
+while get_p
+  mode_selector
+  player_n = gets.chomp
+
+  case player_n
+  when '2'
+    flash("\n\n\n\n\t\t\tLet's play", 2)
+    get_p = false
+  when '1'
+    flash("\n\n\n\n\t\t\tDefeat the computer!", 2)
+    get_p = false
   else
     hold('Your input is invalid, press ENTER and try again')
     cl_screen
