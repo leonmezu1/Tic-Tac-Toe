@@ -83,13 +83,52 @@ while get_p
 
   case player_n
   when '2'
-    flash("\n\n\n\n\t\t\tLet's play", 2)
+    flash("\n\n\n\n\t\t\tLet's play,", 2)
     get_p = false
   when '1'
-    flash("\n\n\n\n\t\t\tDefeat the computer!", 2)
+    flash("\n\n\n\n\t\t\tDefeat the machine!, GET READY!", 2)
     get_p = false
   else
     hold('Your input is invalid, press ENTER and try again')
     cl_screen
+  end
+end
+
+gaming = true
+turn = 0
+
+while gaming
+
+  puts '|-------------------------------------|'
+  puts '|-------------------------------------|'
+  puts '|-------------------------------------|'
+  puts ''
+  puts '            | 1 | 2 | 3 |              '
+  puts '          A | - | - | - |              '
+  puts '          B | - | - | - |              '
+  puts '          B | - | - | - |              '
+  puts ''
+  puts '|-------------------------------------|'
+  puts '|-------------------------------------|'
+  puts '|-------------------------------------|'
+  puts ''
+  puts "| It's Your turn PLAYER, show your move |" if turn.even?
+  puts "| Or type 'end' for leaving |" if turn.even?
+
+  input_trigger = true
+  while input_trigger
+    move = gets.chomp
+    if move == 'end'
+      gaming = false
+      break
+    elsif move.start_with?('a') || move.start_with?('b') || move.start_with?('c')
+      puts "| You played #{move}"
+      puts "It's the machine's turn now"
+      input_trigger = false
+    else
+      hold('Your input is invalid, press ENTER and try again')
+      cl_screen
+      input_trigger = false
+    end
   end
 end
