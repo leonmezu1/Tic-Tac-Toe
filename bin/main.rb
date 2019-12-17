@@ -102,12 +102,12 @@ while gaming
   puts '|-------------------------------------|'
   puts '|-------------------------------------|'
   puts '|-------------------------------------|'
-  puts ''
-  puts '            | 1 | 2 | 3 |              '
-  puts '          A | - | - | - |              '
-  puts '          B | - | - | - |              '
-  puts '          B | - | - | - |              '
-  puts ''
+  puts '|                                     |'
+  puts '|            | 1 | 2 | 3 |            |'
+  puts '|          A | - | - | - |            |'
+  puts '|          B | - | - | - |            |'
+  puts '|          B | - | - | - |            |'
+  puts '|                                     |'
   puts '|-------------------------------------|'
   puts '|-------------------------------------|'
   puts '|-------------------------------------|'
@@ -117,11 +117,11 @@ while gaming
 
   input_trigger = true
   while input_trigger
-    move = gets.chomp
+    move = gets.chomp.to_s
     if move == 'end'
       gaming = false
       break
-    elsif move.start_with?('a') || move.start_with?('b') || move.start_with?('c')
+    elsif move.match('[a-cA-C][1-3]')
       puts "| You played #{move}"
       puts "It's the machine's turn now"
       input_trigger = false
