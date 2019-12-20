@@ -1,7 +1,23 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'io/console'
+require '../lib/game_engine.rb'
+require '../lib/player_engine.rb'
+
+def game_promt(times)
+  0.upto(times) do
+    cl_screen
+    sleep 0.35
+    puts '.____           __ /\          ________                       '
+    puts '|    |    _____/  |)/ ______  /  _____/_____    _____   ____  '
+    puts '|    |  _/ __ \   __\/  ___/ /   \  ___\__  \  /     \_/ __ \ '
+    puts '|    |__\\  ___/|  |  \\___ \\  \\    \\_\\  \\/ __ \\|  Y Y  \\  ___/ '
+    puts '|_______ \\___  >__| /____  >  \\______  (____  /__|_|  /\\___  >'
+    puts '        \\/   \\/          \\/          \\/     \\/      \\/     \\/ '
+    puts '																										          '
+    sleep 0.35
+  end
+end
 
 def cl_screen
   if RUBY_PLATFORM =~ /win32|win64|\.NET|windows|cygwin|mingw32/i
@@ -42,22 +58,6 @@ def mode_selector
   puts ''
 end
 
-def board
-  puts '|-------------------------------------|'
-  puts '|-------------------------------------|'
-  puts '|-------------------------------------|'
-  puts '|                                     |'
-  puts '|            | 1 | 2 | 3 |            |'
-  puts '|          A | - | - | - |            |'
-  puts '|          B | - | - | - |            |'
-  puts '|          C | - | - | - |            |'
-  puts '|                                     |'
-  puts '|-------------------------------------|'
-  puts '|-------------------------------------|'
-  puts '|-------------------------------------|'
-  puts ''
-end
-
 main_prompt = true
 
 while main_prompt
@@ -88,7 +88,7 @@ while main_prompt
 
   when 'X', 'x'
     cl_screen
-    flash("\n\n\n\n\t\t\tLet's play", "\n\n\n\n\t\t\tTic Tac Toe", 2)
+    game_promt(5)
     main_prompt = false
   else
     hold('Your input is invalid, press ENTER and try again')
