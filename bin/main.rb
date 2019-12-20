@@ -1,12 +1,15 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../lib/game_engine.rb'
-require_relative '../lib/player_engine.rb'
+require_relative '../lib/game_engine'
+require_relative '../lib/player_engine'
+
+game_new = Game.new('session')
+bd = Board.new
 main_prompt = true
 
 while main_prompt
-  cl_screen
+  game_new.cl_screen
   puts "\n\t\tWelcome to Tic-Tac-Toe, Let's Game!\n\n"
   puts "\tType 'I' for instructions and learn how to play"
   puts "\tType 'X' to start!"
@@ -14,7 +17,7 @@ while main_prompt
 
   case start_key
   when 'I', 'i'
-    cl_screen
+    game_new.cl_screen
     puts "INSTRUCTIONS:\n\n"
     puts "The game is played on a grid that's 3 squares by 3 squares\n"
     puts 'First player is X, second player is O'
@@ -25,26 +28,26 @@ while main_prompt
     puts 'When all 9 squares are full, the game is over.'
     puts "If no player has 3 marks in a row, the game ends in a tie\n\n\n"
     hold('Press ENTER to continue...')
-    cl_screen
+    game_new.cl_screen
     puts "INSTRUCTIONS:\n\n"
     puts "To select a spot you must specify the row 'A, B or C'\n\n"
     puts "Followed by the column number '1, 2 or 3' and press ENTER\n\n\n"
     hold('Press ENTER to continue...')
 
   when 'X', 'x'
-    cl_screen
-    game_promt(5)
+    game_new.cl_screen
+    game_new.game_promt(5)
     main_prompt = false
   else
-    hold('Your input is invalid, press ENTER and try again')
-    cl_screen
+    game_new.hold('Your input is invalid, press ENTER and try again')
+    game_new.cl_screen
   end
 end
 
 get_p = true
 
 while get_p
-  mode_selector
+  game_new.mode_selector
   player_n = gets.chomp.to_i
 
   case player_n
@@ -53,16 +56,16 @@ while get_p
     player1 = gets.chomp.to_s
     puts "\n\nType the player's TWO nickname:"
     player2 = gets.chomp.to_s
-    flash("\n\n\n\n\t\t\tLet's play,", 2)
+    game_new.flash("\n\n\n\n\t\t\tLet's play,", 2)
     get_p = false
   when 1
     puts "\n\nType the player's nickname:"
     player1 = gets.chomp.to_s
-    flash("\n\n\n\n\t\t\tDefeat the machine!, GET READY!", 2)
+    game_new.flash("\n\n\n\n\t\t\tDefeat the machine!, GET READY!", 2)
     get_p = false
   else
-    hold('Your input is invalid, press ENTER and try again')
-    cl_screen
+    game_new.hold('Your input is invalid, press ENTER and try again')
+    game_new.cl_screen
   end
 end
 
@@ -71,11 +74,13 @@ playable_moves = %w[A1 A2 A3 B1 B2 B3 C1 C2 C3]
 turn = 0
 
 while turn < 9 && gaming == true
-  board
+	bd.board
+	c_or_d = turn.even? ?  'X' : 'O'
   if turn.odd? && player_n.eql?(1)
-    cl_screen
+    game_new.cl_screen
     move = playable_moves.sample
-    board
+    bd.game_input(move, )
+    bd.board
     puts "| The machine played #{move} |"
     turn += 1
     playable_moves.delete(move)
@@ -91,22 +96,23 @@ while turn < 9 && gaming == true
       gaming = false
       break
     elsif !playable_moves.include?(move)
-      hold('that movement is not available, check the availables below, press ENTER and try another one, ')
+      game_new.hold('that movement is not available, check the availables below, press ENTER and try another one, ')
       puts "\n\nThe available moves are: #{playable_moves}\n\n"
     elsif move.match('[A-C][1-3]') && playable_moves.include?(move)
-      cl_screen
+      game_new.cl_screen
+      bd.game_input(move, )
       puts "| The last move was: #{move}"
       playable_moves.delete(move)
       input_trigger = false
       turn += 1
     else
-      hold('Your input is invalid, press ENTER and try again')
-      cl_screen
+      game_new.hold('Your input is invalid, press ENTER and try again')
+      game_new.cl_screen
     end
   end
 end
 
-cl_screen
+game_new.cl_screen
 puts "\n\n\t\tThe maximum number of turns is given, the game now decides if:"
 puts "\n\n\t\t\tThere's a WINNER or if it's a TIE"
 puts "\n\n\t\tThe game also check if there's a winning line since turn >= 3\n\n"

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative 'player_engine.rb'
+require_relative 'player_engine'
 require 'io/console'
 
 class Game
@@ -62,6 +62,21 @@ class Game
     puts '| ------------------------------------- |'
     puts ''
   end
+end
+
+class Board
+  attr_accessor :A1, :A2, :A3,
+                :B1, :B2, :C3,
+                :C1, :C2, :C3, :key
+  $key = {
+    A1: '-', A2: '-', A3: '-',
+    B1: '-', B2: '-', B3: '-',
+    C1: '-', C2: '-', C3: '-'
+  }
+
+  def game_input(chain, value)
+    $key[chain.to_sym] = value
+  end
 
   def board
     puts '|-------------------------------------|'
@@ -69,9 +84,9 @@ class Game
     puts '|-------------------------------------|'
     puts '|                                     |'
     puts '|            | 1 | 2 | 3 |            |'
-    puts '|          A | - | - | - |            |'
-    puts '|          B | - | - | - |            |'
-    puts '|          C | - | - | - |            |'
+    puts "|          A | #{$key[:A1]} | #{$key[:A2]} | #{$key[:A3]} |            |"
+    puts "|          B | #{$key[:B2]} | #{$key[:B2]} | #{$key[:B3]} |            |"
+    puts "|          C | #{$key[:C3]} | #{$key[:C2]} | #{$key[:C3]} |            |"
     puts '|                                     |'
     puts '|-------------------------------------|'
     puts '|-------------------------------------|'
