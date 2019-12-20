@@ -70,24 +70,27 @@ while get_p
 end
 
 gaming = true
-playable_moves = %w[A1 A2 A3 B1 B2 B3 C1 C2 C3]
 turn = 0
+playable_moves = %w[A1 A2 A3 B1 B2 B3 C1 C2 C3]
 
 while turn < 9 && gaming == true
-	bd.board
-	c_or_d = turn.even? ?  'X' : 'O'
+	c_or_d = (turn % 2).eql?(0) ? 'X' : 'O'
+	puts c_or_d
+  puts "the turn is: #{turn}"
   if turn.odd? && player_n.eql?(1)
-    game_new.cl_screen
     move = playable_moves.sample
-    bd.game_input(move, )
-    bd.board
-    puts "| The machine played #{move} |"
-    turn += 1
-    playable_moves.delete(move)
+    bd.game_input(move, c_or_d)
+		playable_moves.delete(move)
+		turn += 1
   end
 
   input_trigger = true
-  while input_trigger
+	while input_trigger
+		c_or_d = (turn % 2).eql?(0) ? 'X' : 'O'
+		puts "|        The last move was: #{move}        |" if turn.positive?
+		puts "the turn is: #{turn}"
+		puts c_or_d
+    bd.board
     puts "| It's your turn #{player1}, show your move or type 'end' for leaving|\n\n" if turn.even?
     puts "| It's your turn #{player2}, show your move or type 'end' for leaving|\n\n" if turn.odd? && player_n.eql?(2)
     move = gets.chomp.to_s
@@ -96,18 +99,15 @@ while turn < 9 && gaming == true
       gaming = false
       break
     elsif !playable_moves.include?(move)
-      game_new.hold('that movement is not available, check the availables below, press ENTER and try another one, ')
-      puts "\n\nThe available moves are: #{playable_moves}\n\n"
+      puts 'that movement is not available, check the availables below, press ENTER and try another one, '
+      game_new.hold("\n\nThe available moves are: #{playable_moves}\n\n")
     elsif move.match('[A-C][1-3]') && playable_moves.include?(move)
-      game_new.cl_screen
-      bd.game_input(move, )
-      puts "| The last move was: #{move}"
+      bd.game_input(move, c_or_d)
       playable_moves.delete(move)
       input_trigger = false
       turn += 1
     else
       game_new.hold('Your input is invalid, press ENTER and try again')
-      game_new.cl_screen
     end
   end
 end

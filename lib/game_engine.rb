@@ -65,9 +65,6 @@ class Game
 end
 
 class Board
-  attr_accessor :A1, :A2, :A3,
-                :B1, :B2, :C3,
-                :C1, :C2, :C3, :key
   $key = {
     A1: '-', A2: '-', A3: '-',
     B1: '-', B2: '-', B3: '-',
@@ -85,8 +82,8 @@ class Board
     puts '|                                     |'
     puts '|            | 1 | 2 | 3 |            |'
     puts "|          A | #{$key[:A1]} | #{$key[:A2]} | #{$key[:A3]} |            |"
-    puts "|          B | #{$key[:B2]} | #{$key[:B2]} | #{$key[:B3]} |            |"
-    puts "|          C | #{$key[:C3]} | #{$key[:C2]} | #{$key[:C3]} |            |"
+    puts "|          B | #{$key[:B1]} | #{$key[:B2]} | #{$key[:B3]} |            |"
+    puts "|          C | #{$key[:C1]} | #{$key[:C2]} | #{$key[:C3]} |            |"
     puts '|                                     |'
     puts '|-------------------------------------|'
     puts '|-------------------------------------|'
