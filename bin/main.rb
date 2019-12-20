@@ -74,22 +74,18 @@ turn = 0
 playable_moves = %w[A1 A2 A3 B1 B2 B3 C1 C2 C3]
 
 while turn < 9 && gaming == true
-	c_or_d = (turn % 2).eql?(0) ? 'X' : 'O'
-	puts c_or_d
-  puts "the turn is: #{turn}"
+  c_or_d = turn.even? ? 'X' : 'O'
   if turn.odd? && player_n.eql?(1)
     move = playable_moves.sample
     bd.game_input(move, c_or_d)
-		playable_moves.delete(move)
-		turn += 1
+    playable_moves.delete(move)
+    turn += 1
   end
 
   input_trigger = true
-	while input_trigger
-		c_or_d = (turn % 2).eql?(0) ? 'X' : 'O'
-		puts "|        The last move was: #{move}        |" if turn.positive?
-		puts "the turn is: #{turn}"
-		puts c_or_d
+  while input_trigger
+    c_or_d = turn.even? ? 'X' : 'O'
+    puts "|        The last move was: #{move}        |" if turn.positive?
     bd.board
     puts "| It's your turn #{player1}, show your move or type 'end' for leaving|\n\n" if turn.even?
     puts "| It's your turn #{player2}, show your move or type 'end' for leaving|\n\n" if turn.odd? && player_n.eql?(2)
