@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# executability tested
+# executability tested again
 
 # rubocop: disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
