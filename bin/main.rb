@@ -180,7 +180,7 @@ if flag[0] && flag.size > 1
   puts "\t\t\t + #{player2.name} + \n\n" if flag[1].eql?('O') && player_n.eql?(2)
   puts "\t\tM A C H I N E\n\n" if flag[1].eql?('O') && player_n.eql?(1)
 else
-  puts "\t" + '	___________.__        '
+  puts "\t" + ' ___________.__         '
   puts "\t" + '\\__    ___/|__| ____  '
   puts "\t" + '  |    |   |  |/ __ \\ '
   puts "\t" + '  |    |   |  \\  ___/ '
