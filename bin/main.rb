@@ -27,12 +27,12 @@ while main_prompt
     puts "(up, down, across, or diagonally) is the winner.\n\n"
     puts 'When all 9 squares are full, the game is over.'
     puts "If no player has 3 marks in a row, the game ends in a tie\n\n\n"
-    hold('Press ENTER to continue...')
+    game_new.hold('Press ENTER to continue...')
     game_new.cl_screen
     puts "INSTRUCTIONS:\n\n"
     puts "To select a spot you must specify the row 'A, B or C'\n\n"
     puts "Followed by the column number '1, 2 or 3' and press ENTER\n\n\n"
-    hold('Press ENTER to continue...')
+    game_new.hold('Press ENTER to continue...')
 
   when 'X', 'x'
     game_new.cl_screen
@@ -90,6 +90,7 @@ while turn < 9 && gaming == true
     puts "| It's your turn #{player1}, show your move or type 'end' for leaving|\n\n" if turn.even?
     puts "| It's your turn #{player2}, show your move or type 'end' for leaving|\n\n" if turn.odd? && player_n.eql?(2)
     move = gets.chomp.to_s
+    game_new.cl_screen
     move.upcase! if move != /[[:upper:]]/.match(move)
     if move == 'END'
       gaming = false
@@ -104,11 +105,16 @@ while turn < 9 && gaming == true
       turn += 1
     else
       game_new.hold('Your input is invalid, press ENTER and try again')
+      game_new.cl_screen
     end
   end
+  next unless turn > 3
+
+  flag = bd.win_scenario[0]
+  break if flag
 end
 
 game_new.cl_screen
-puts "\n\n\t\tThe maximum number of turns is given, the game now decides if:"
-puts "\n\n\t\t\tThere's a WINNER or if it's a TIE"
-puts "\n\n\t\tThe game also check if there's a winning line since turn >= 3\n\n"
+
+puts 'Is a WIN' if flag
+puts 'Is a TIE' unless flag

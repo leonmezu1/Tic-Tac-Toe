@@ -65,15 +65,15 @@ class Game
 end
 
 class Board
-	def initialize
-		@key = {
-			A1: '-', A2: '-', A3: '-',
-			B1: '-', B2: '-', B3: '-',
-			C1: '-', C2: '-', C3: '-'
-		}
-	end
+  def initialize
+    @key = {
+      A1: '-', A2: '-', A3: '-',
+      B1: '-', B2: '-', B3: '-',
+      C1: '-', C2: '-', C3: '-'
+    }
+  end
 
-	def game_input(chain, value)
+  def game_input(chain, value)
     @key[chain.to_sym] = value
   end
 
@@ -91,5 +91,40 @@ class Board
     puts '|-------------------------------------|'
     puts '|-------------------------------------|'
     puts ''
+  end
+
+  # rubocop: disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+  def win_scenario
+    output = []
+    %w[X O].each do |item|
+      if [@key[:A1], @key[:A2], @key[:A3]].uniq.eql?([item])
+        output.push(true, @key[:A1])
+        break
+      elsif [@key[:B1], @key[:B2], @key[:B3]].uniq.eql?([item])
+        output.push(true, @key[:B1])
+        break
+      elsif [@key[:C1], @key[:C2], @key[:C3]].uniq.eql?([item])
+        output.push(true, @key[:C1])
+        break
+      elsif [@key[:A1], @key[:B1], @key[:C1]].uniq.eql?([item])
+        output.push(true, @key[:A1])
+        break
+      elsif [@key[:A2], @key[:B2], @key[:C2]].uniq.eql?([item])
+        output.push(true, @key[:A2])
+        break
+      elsif [@key[:A3], @key[:B3], @key[:C3]].uniq.eql?([item])
+        output.push(true, @key[:A3])
+        break
+      elsif [@key[:A1], @key[:B2], @key[:C3]].uniq.eql?([item])
+        output.push(true, @key[:A1])
+        break
+      elsif [@key[:A3], @key[:B2], @key[:C1]].uniq.eql?([item])
+        output.push(true, @key[:A3])
+        break
+      else
+        output.push(false)
+      end
+    end
+    output
   end
 end
