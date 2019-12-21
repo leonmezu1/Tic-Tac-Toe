@@ -79,7 +79,7 @@ while main_prompt
 
   when 'X', 'x'
     cl_screen
-    game_promt(5)
+    game_promt(3)
     main_prompt = false
   else
     hold('Your input is invalid, press ENTER and try again')
@@ -99,7 +99,7 @@ while get_p
     name1 = gets.chomp.to_s
     puts "\n\nType the player's TWO nickname:"
     name2 = gets.chomp.to_s
-    flash("\n\n\n\n\t\t\tLet's play,", 2)
+    flash("\n\n\n\n\t\t\tLet's GAME,", 2)
     player1 = Player.new(name1)
     player2 = Player.new(name2)
     get_p = false
@@ -126,6 +126,8 @@ while turn < 9 && gaming == true
     bd.game_input(move, c_or_d)
     playable_moves.delete(move)
     turn += 1
+    flag = bd.win_scenario
+    break if flag.size > 1 && turn > 2
   end
 
   input_trigger = true
@@ -156,31 +158,32 @@ while turn < 9 && gaming == true
       cl_screen
     end
   end
-  next unless turn > 3
+  next unless turn > 2
 
   flag = bd.win_scenario
-  break if flag[0]
+  puts flag
+  break if flag.size > 1
 end
 
 cl_screen
+puts "\n" * 3
 
-if flag
-  puts '__      __.__ '
-  puts '/  \\    /  \\__| ____   ____   ___________ '
-  puts '\\   \\/\\/   /  |/    \\ /    \\_/ __ \_  __ \\'
-  puts ' \\        /|  |   |  \\   |  \\  ___/|  | \\/'
-  puts '  \\__/\\  / |__|___|  /___|  /\\___  >__|   '
-  puts '       \\/          \\/     \\/     \\/       '
+if flag[0] && flag.size > 1
+  puts "\t" + '__      __.__ '
+  puts "\t" + '/  \\    /  \\__| ____   ____   ___________ '
+  puts "\t" + '\\   \\/\\/   /  |/    \\ /    \\_/ __ \_  __ \\'
+  puts "\t" + ' \\        /|  |   |  \\   |  \\  ___/|  | \\/'
+  puts "\t" + '  \\__/\\  / |__|___|  /___|  /\\___  >__|   '
+  puts "\t" + '       \\/          \\/     \\/     \\/       '
   puts "\n" * 4
-  puts player1.name if flag[1].eql?('X')
-  puts player2.name if flag[1].eql?('0')
-end
-
-unless flag
-  puts '	___________.__        '
-  puts '\\__    ___/|__| ____  '
-  puts '  |    |   |  |/ __ \\ '
-  puts '  |    |   |  \\  ___/ '
-  puts '  |____|   |__|\___  >'
-  puts '                   \\/ '
+  puts "\t\t\t + #{player1.name} + \n\n" if flag[1].eql?('X')
+  puts "\t\t\t + #{player2.name} + \n\n" if flag[1].eql?('O') && player_n.eql?(2)
+  puts "\t\tM A C H I N E\n\n" if flag[1].eql?('O') && player_n.eql?(1)
+else
+  puts "\t" + '	___________.__        '
+  puts "\t" + '\\__    ___/|__| ____  '
+  puts "\t" + '  |    |   |  |/ __ \\ '
+  puts "\t" + '  |    |   |  \\  ___/ '
+  puts "\t" + '  |____|   |__|\___  >'
+  puts "\t" + '                   \\/ '
 end

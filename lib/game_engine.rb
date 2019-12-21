@@ -52,7 +52,7 @@ class Board
             '']
   end
 
-  # rubocop: disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/BlockLength
+  # rubocop: disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   def win_scenario
     output = []
     %w[X O].each do |item|
@@ -80,8 +80,6 @@ class Board
       elsif [@key[:A3], @key[:B2], @key[:C1]].uniq.eql?([item])
         output.push(true, @key[:A3])
         break
-      else
-        output.push(false)
       end
     end
     output
