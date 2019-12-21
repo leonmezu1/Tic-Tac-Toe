@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+# executability tested
+
 # rubocop: disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
 require_relative 'player_engine'
