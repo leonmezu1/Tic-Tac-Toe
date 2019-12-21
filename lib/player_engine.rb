@@ -5,4 +5,8 @@ class Player
   def initialize(name)
     @name = name
   end
+
+  class << self
+    attr_accessor :name
+    end
 end
