@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+# rubocop: disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+
 require_relative 'player_engine'
 require 'io/console'
 
@@ -52,7 +54,6 @@ class Board
             '']
   end
 
-  # rubocop: disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   def win_scenario
     output = []
     %w[X O].each do |item|
@@ -84,5 +85,6 @@ class Board
     end
     output
   end
-  # rubocop: enable Metrics/CyclomaticComplexity
 end
+
+# rubocop: enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
