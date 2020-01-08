@@ -12,6 +12,48 @@ class Game
     @session = session
   end
 
+  def cl_screen
+    if RUBY_PLATFORM =~ /win32|win64|\.NET|windows|cygwin|mingw32/i
+      system('cls')
+    else
+      system('clear')
+    end
+  end
+
+  def game_promt(times)
+    0.upto(times) do
+      cl_screen
+      sleep 0.35
+      puts "\n" * 3
+      puts "\t" + '.____           __ /\          ________                       '
+      puts "\t" + '|    |    _____/  |)/ ______  /  _____/_____    _____   ____  '
+      puts "\t" + '|    |  _/ __ \   __\/  ___/ /   \  ___\__  \  /     \_/ __ \ '
+      puts "\t" + '|    |__\\  ___/|  |  \\___ \\  \\    \\_\\  \\/ __ \\|  Y Y  \\  ___/ '
+      puts "\t" + '|_______ \\___  >__| /____  >  \\______  (____  /__|_|  /\\___  >'
+      puts "\t" + '        \\/   \\/          \\/          \\/     \\/      \\/     \\/ '
+      puts "\t" + '																										          '
+      sleep 0.35
+    end
+  end
+
+  def hold(prompt = nil)
+    print prompt
+    STDIN.getch
+    print "            \r"
+  end
+
+  def flash(*prompt)
+    0.upto(prompt[-1]) do
+      cl_screen
+      STDOUT.puts prompt[0].to_s if prompt[0].respond_to?(:to_s)
+      sleep 0.35
+      cl_screen
+      STDOUT.puts prompt[1].to_s if prompt[1].is_a?(String)
+      sleep 0.35
+      print "            \r"
+    end
+  end
+
   def mode_selector
     cl_screen
     @select = ['| ------------------------------------- |',
@@ -27,12 +69,15 @@ class Game
 end
 
 class Board
+  attr_accessor :key, :playable_moves, :turn
   def initialize
     @key = {
       A1: '-', A2: '-', A3: '-',
       B1: '-', B2: '-', B3: '-',
       C1: '-', C2: '-', C3: '-'
     }
+    @turn = 0
+    @playable_moves = %w[A1 A2 A3 B1 B2 B3 C1 C2 C3]
   end
 
   def game_input(chain, value)
